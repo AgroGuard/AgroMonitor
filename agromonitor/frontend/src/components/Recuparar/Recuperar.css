@@ -1,0 +1,10 @@
+.login-image img {
+  width: 150px; 
+  height: auto;
+}
+
+.button {
+  margin-top: 20px;    /* Afasta o botão do campo de e-mail ⬆️ */
+  margin-bottom: 15px; /* Afasta o botão do link de voltar ⬇️ */
+  width: 100%;         /* Garante que o botão ocupe a largura total */
+}
