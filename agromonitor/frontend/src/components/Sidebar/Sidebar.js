@@ -12,11 +12,11 @@ const Sidebar = () => {
         <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
           Visão Geral
         </NavLink>
-        <NavLink to="/estufas" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-          Estufas
+        <NavLink to="/cadastro-estufa" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+          Cadastro de Estufas
         </NavLink>
         <NavLink to="/cadastro" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
-          Cadastro
+          Cadastro de Usuários
         </NavLink>
         <NavLink to="/configuracoes" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
           Configurações

@@ -7,13 +7,10 @@ const Cadastro = () => {
     const [formUsuario, setFormUsuario] = useState({
         nomeFuncionario: '',
         email: '',
-        senha: '',
-        confirma_senha: ''
+        confirmaEmail: '', 
+        cargo: 'Funcionario'
     });
-    const [formEstufa, setFormEstufa] = useState({
-        nomeEstufa: '',
-        observacoes: ''
-    });
+    
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -23,31 +20,27 @@ const Cadastro = () => {
         setError('');
     };
 
-    const handleEstufaChange = (e) => {
-        const { name, value } = e.target;
-        setFormEstufa(prev => ({ ...prev, [name]: value }));
-    };
-
     const handleCadastroUsuario = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
 
-        const { nomeFuncionario, email, senha, confirma_senha } = formUsuario;
+        const { nomeFuncionario, email, confirmaEmail, cargo } = formUsuario;
 
-        if (!nomeFuncionario || !email || !senha || !confirma_senha) {
+        if (!nomeFuncionario || !email || !confirmaEmail || !cargo) {
             setError('Todos os campos são obrigatórios.');
             setLoading(false);
             return;
         }
 
-        if (senha.length < 6) {
-            setError('A senha deve ter pelo menos 6 caracteres.');
+        if (email !== confirmaEmail) {
+            setError('Os e-mails informados não coincidem.');
             setLoading(false);
             return;
         }
 
         try {
+            // Enviando os dados atualizados incluindo o cargo para o Django
             const response = await fetch('http://127.0.0.1:8000/api/cadastro/', {
                 method: 'POST',
                 headers: {
@@ -56,8 +49,7 @@ const Cadastro = () => {
                 body: JSON.stringify({
                     usuario: nomeFuncionario,
                     email: email,
-                    senha: senha,
-                    confirma_senha: confirma_senha
+                    cargo: cargo
                 }),
             });
 
@@ -68,8 +60,8 @@ const Cadastro = () => {
                 setFormUsuario({
                     nomeFuncionario: '',
                     email: '',
-                    senha: '',
-                    confirma_senha: ''
+                    confirmaEmail: '',
+                    cargo: 'Funcionario'
                 });
                 setTimeout(() => navigate('/'), 2000);
             } else {
@@ -83,16 +75,7 @@ const Cadastro = () => {
         }
     };
 
-    const handleCadastroEstufa = (e) => {
-        e.preventDefault();
-        console.log("Estufa: ", formEstufa.nomeEstufa);
-        console.log("Observações: ", formEstufa.observacoes);
-        alert("Cadastro de estufa realizado com sucesso!")
-        setFormEstufa({
-            nomeEstufa: '',
-            observacoes: ''
-        });
-    };
+    
 
     return (
         <div className="registration-container">
@@ -103,47 +86,21 @@ const Cadastro = () => {
                     <div className="inputs-column">
                         <div className="input-group">
                             <label htmlFor="nome">Nome Completo</label>
-                            <input
-                                id="nome"
-                                type="text"
-                                name="nomeFuncionario"
-                                placeholder="Digite o nome do funcionário"
-                                value={formUsuario.nomeFuncionario}
-                                onChange={handleUsuarioChange}
-                                required
-                            />
+                            <input id="nome" type="text" name="nomeFuncionario" placeholder="Digite o nome do funcionário" value={formUsuario.nomeFuncionario} onChange={handleUsuarioChange} required />
+                            
                             <label htmlFor="email">Email</label>
-                            <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                placeholder="seu.email@exemplo.com"
-                                value={formUsuario.email}
-                                onChange={handleUsuarioChange}
-                                required
-                            />
-                            <label htmlFor="senha">Senha</label>
-                            <input
-                                id="senha"
-                                type="password"
-                                name="senha"
-                                placeholder="Digite uma senha (mín. 6 caracteres)"
-                                value={formUsuario.senha}
-                                onChange={handleUsuarioChange}
-                                minLength={6}
-                                required
-                            />
-                            <label htmlFor="confirma_senha">Confirmar Senha</label>
-                            <input
-                                id="confirma_senha"
-                                type="password"
-                                name="confirma_senha"
-                                placeholder="Confirme sua senha"
-                                value={formUsuario.confirma_senha}
-                                onChange={handleUsuarioChange}
-                                minLength={6}
-                                required
-                            />
+                            <input id="email" type="email" name="email" placeholder="seu.email@exemplo.com" value={formUsuario.email} onChange={handleUsuarioChange} required />
+                            
+                            <label htmlFor="confirmaEmail">Confirmar Email</label>
+                            <input id="confirmaEmail" type="email" name="confirmaEmail" placeholder="Confirme seu email" value={formUsuario.confirmaEmail} onChange={handleUsuarioChange} required />
+                            
+                            {/* NOVO CAMPO: SELEÇÃO DE CARGO */}
+                            <label htmlFor="cargo">Cargo</label>
+                            <select id="cargo" name="cargo" value={formUsuario.cargo} onChange={handleUsuarioChange} required>
+                                <option value="Funcionario">Funcionário</option>
+                                <option value="Supervisor">Supervisor</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
                         </div>
                     </div>
                     <div className="button-column">
@@ -157,40 +114,24 @@ const Cadastro = () => {
                     </div>
                 </div>
             </section>
-            <hr className="divider" />
-            <section className="registration-card">
-                <h2 className="card-title">Cadastro de Estufa</h2>
-                <div className="card-container">
-                    <div className="form-row-flex">
-                        <div className="inputs-column">
-                            <div className="input-group">
-                                <label htmlFor="nome-estufa">Nome da Estufa</label>
-                                <input
-                                    id="nome-estufa"
-                                    type="text"
-                                    name="nomeEstufa"
-                                    placeholder="Digite o nome da estufa"
-                                    value={formEstufa.nomeEstufa}
-                                    onChange={handleEstufaChange}
-                                />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="obs">Observações</label>
-                                <textarea
-                                    id="obs"
-                                    name="observacoes"
-                                    placeholder="Ex: Solo com alta umidade, quer atenção no dreno..."
-                                    value={formEstufa.observacoes}
-                                    onChange={handleEstufaChange}
-                                    rows="4"
-                                />
-                            </div>
-                        </div>
-                        <div className="button-column">
-                            <button className="button-user" onClick={handleCadastroEstufa}>Cadastrar</button>
-                        </div>
-                    </div>
-                </div>
+            
+            <section className="table-section">
+                <table className="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Cargo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exemplo Nome</td>
+                            <td>exemplo@email.com</td>
+                            <td>Supervisor</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
     );

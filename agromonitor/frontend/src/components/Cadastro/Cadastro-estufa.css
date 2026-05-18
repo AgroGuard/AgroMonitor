@@ -1,0 +1,110 @@
+/* Container Geral da Página */
+.registration-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Card do Formulário */
+.registration-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.card-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Alinhamento do Formulário e Botão */
+.form-row-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alinha o botão com a base do formulário */
+    gap: 20px;
+}
+
+.inputs-column {
+    flex: 1;
+}
+
+/* Inputs e Rótulos */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #444;
+    margin-top: 10px;
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.input-group textarea {
+    resize: vertical; /* Permite esticar apenas para baixo */
+}
+
+/* Coluna e Botão Cadastrar */
+.button-column {
+    display: flex;
+    align-items: flex-end;
+}
+
+.button-user {
+    background-color: #1a6d3f;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-user:hover {
+    background-color: #13502e;
+}
+
+/* Seção da Tabela */
+.table-section {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.custom-table th, .custom-table td {
+    padding: 15px 20px;
+}
+
+.custom-table th {
+    font-weight: bold;
+    color: #000;
+    border-bottom: 2px solid #eeeeee;
+}
+
+.custom-table td {
+    color: #666;
+    border-bottom: 1px solid #eeeeee;
+}

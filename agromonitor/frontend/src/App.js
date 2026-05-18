@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Cadastro from './components/Cadastro/Cadastro';
 import Sidebar from './components/Sidebar/Sidebar';
 import Recuperar from './components/Recuparar/Recuperar';
+import CadastroEstufa from './components/Cadastro/Cadastro-Estufa';
 
 function App() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/cadastro-estufa" element={<CadastroEstufa />} />
           <Route path="/recuperar" element={<Recuperar />} />
         </Routes>
       </main>

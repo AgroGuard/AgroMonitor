@@ -77,12 +77,21 @@
   max-width: 800px; 
 }
 
-.input-group input, 
-.input-group select {
-  max-width: 500px; 
-  width: 100%; 
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
+.table-section{
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.custom-table{
+  width: 100%;
+  border-collapse: collapse;
+}
