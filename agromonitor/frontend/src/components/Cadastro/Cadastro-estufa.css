@@ -1,4 +1,3 @@
-/* Container Geral da Página */
 .registration-container {
     padding: 20px;
     display: flex;
@@ -6,7 +5,6 @@
     gap: 30px;
 }
 
-/* Card do Formulário */
 .registration-card {
     background-color: #fff;
     padding: 25px;
@@ -20,11 +18,10 @@
     font-weight: bold;
 }
 
-/* Alinhamento do Formulário e Botão */
 .form-row-flex {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end; /* Alinha o botão com a base do formulário */
+    align-items: flex-end; 
     gap: 20px;
 }
 
@@ -56,10 +53,9 @@
 }
 
 .input-group textarea {
-    resize: vertical; /* Permite esticar apenas para baixo */
+    resize: vertical;
 }
 
-/* Coluna e Botão Cadastrar */
 .button-column {
     display: flex;
     align-items: flex-end;
@@ -81,7 +77,6 @@
     background-color: #13502e;
 }
 
-/* Seção da Tabela */
 .table-section {
     background-color: #fff;
     border-radius: 8px;
