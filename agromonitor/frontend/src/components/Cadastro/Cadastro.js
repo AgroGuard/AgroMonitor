@@ -40,7 +40,7 @@ const Cadastro = () => {
         }
 
         try {
-=            const response = await fetch('http://127.0.0.1:8000/api/cadastro/', {
+            const response = await fetch('http://127.0.0.1:8000/api/cadastro/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const Cadastro = () => {
                             <label htmlFor="confirmaEmail">Confirmar Email</label>
                             <input id="confirmaEmail" type="email" name="confirmaEmail" placeholder="Confirme seu email" value={formUsuario.confirmaEmail} onChange={handleUsuarioChange} required />
                             
-=                            <label htmlFor="cargo">Cargo</label>
+                            <label htmlFor="cargo">Cargo</label>
                             <select id="cargo" name="cargo" value={formUsuario.cargo} onChange={handleUsuarioChange} required>
                                 <option value="Funcionario">Funcionário</option>
                                 <option value="Supervisor">Supervisor</option>
