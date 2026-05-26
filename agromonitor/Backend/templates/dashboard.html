@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">{{ titulo }}</h1>
+            <p class="text-gray-600 mt-2">Monitoramento da plataforma AgroMonitor - {{ data_atual }}</p>
+        </div>
+
+        <!-- Cards de Estatísticas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" id="stats-cards">
+            <!-- Cards serão preenchidos via JavaScript -->
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Distribuição de Usuários</h3>
+                <canvas id="userChart"></canvas>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Atividades Recentes</h3>
+                <div id="recent-activities" class="space-y-2">
+                    <!-- Atividades serão preenchidas via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Alertas do Sistema -->
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <h3 class="text-lg font-semibold mb-4">Alertas do Sistema</h3>
+            <div id="system-alerts" class="space-y-2">
+                <!-- Alertas serão preenchidos via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Métricas em Tempo Real -->
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Métricas em Tempo Real</h3>
+            <div id="real-time-metrics" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Métricas serão preenchidas via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para carregar dados da API
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/dashboard/api/stats/');
+                const data = await response.json();
+
+                if (data.success) {
+                    updateStatsCards(data.data);
+                    updateCharts(data.data);
+                    updateRecentActivities(data.data.atividades_recentes);
+                    updateSystemAlerts(data.data.alertas_ativos);
+                    updateRealTimeMetrics(data.data.metricas_tempo_real);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        // Atualizar cards de estatísticas
+        function updateStatsCards(stats) {
+            const cardsContainer = document.getElementById('stats-cards');
+            const cards = [
+                { title: 'Total de Usuários', value: stats.total_usuarios, color: 'bg-blue-500' },
+                { title: 'Owners', value: stats.total_owners, color: 'bg-green-500' },
+                { title: 'Usuários Ativos Hoje', value: stats.usuarios_ativos_hoje, color: 'bg-yellow-500' },
+                { title: 'Novos Usuários Hoje', value: stats.novos_usuarios_hoje, color: 'bg-purple-500' },
+            ];
+
+            cardsContainer.innerHTML = cards.map(card => `
+                <div class="${card.color} text-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">${card.title}</h3>
+                    <p class="text-3xl font-bold mt-2">${card.value}</p>
+                </div>
+            `).join('');
+        }
+
+        // Atualizar gráficos
+        function updateCharts(stats) {
+            const ctx = document.getElementById('userChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Owners', 'Supervisores', 'Funcionários'],
+                    datasets: [{
+                        data: [stats.total_owners, stats.total_supervisores, stats.total_funcionarios],
+                        backgroundColor: ['#10B981', '#F59E0B', '#3B82F6'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Atualizar atividades recentes
+        function updateRecentActivities(activities) {
+            const container = document.getElementById('recent-activities');
+            if (activities.length === 0) {
+                container.innerHTML = '<p class="text-gray-500">Nenhuma atividade recente</p>';
+                return;
+            }
+
+            container.innerHTML = activities.map(activity => `
+                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                    <div>
+                        <p class="font-medium">${activity.usuario}</p>
+                        <p class="text-sm text-gray-600">${activity.atividade}</p>
+                    </div>
+                    <span class="text-sm text-gray-500">${activity.data}</span>
+                </div>
+            `).join('');
+        }
+
+        // Atualizar alertas do sistema
+        function updateSystemAlerts(alerts) {
+            const container = document.getElementById('system-alerts');
+            if (alerts.length === 0) {
+                container.innerHTML = '<p class="text-gray-500">Nenhum alerta ativo</p>';
+                return;
+            }
+
+            const levelColors = {
+                'info': 'bg-blue-100 text-blue-800',
+                'warning': 'bg-yellow-100 text-yellow-800',
+                'error': 'bg-red-100 text-red-800',
+                'critical': 'bg-red-200 text-red-900'
+            };
+
+            container.innerHTML = alerts.map(alert => `
+                <div class="p-3 rounded ${levelColors[alert.nivel] || 'bg-gray-100'}">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-medium">${alert.titulo}</h4>
+                            <p class="text-sm mt-1">${alert.mensagem}</p>
+                        </div>
+                        <span class="text-xs">${alert.data}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Atualizar métricas em tempo real
+        function updateRealTimeMetrics(metrics) {
+            const container = document.getElementById('real-time-metrics');
+            const metricsArray = Object.entries(metrics);
+
+            if (metricsArray.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 col-span-full">Nenhuma métrica disponível</p>';
+                return;
+            }
+
+            container.innerHTML = metricsArray.map(([key, data]) => `
+                <div class="text-center">
+                    <p class="text-2xl font-bold text-gray-800">${data.valor}</p>
+                    <p class="text-sm text-gray-600">${key}</p>
+                    <p class="text-xs text-gray-500">${data.unidade}</p>
+                </div>
+            `).join('');
+        }
+
+        // Carregar dados ao carregar a página
+        document.addEventListener('DOMContentLoaded', loadDashboardData);
+
+        // Atualizar dados a cada 30 segundos
+        setInterval(loadDashboardData, 30000);
+    </script>
+</body>
+</html>
