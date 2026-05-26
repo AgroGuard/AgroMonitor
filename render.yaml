@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: agromonitor-backend
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r agromonitor/Backend/requirements-production.txt
+      python agromonitor/Backend/manage.py migrate --noinput
+      python agromonitor/Backend/manage.py collectstatic --noinput
+    startCommand: gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
+    disk: 512
+    envVars:
+      - key: SECRET_KEY
+      - key: DATABASE_URL
+      - key: DEBUG
+      - key: ALLOWED_HOSTS
+      - key: FRONTEND_URL
