@@ -33,6 +33,12 @@ const Dashboard = () => {
     setIsChatOpen(!isChatOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  };
+
   return (
     <>
       <div className="main-content">
