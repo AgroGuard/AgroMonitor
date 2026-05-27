@@ -35,9 +35,8 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Deploy no Vercel (produção)
-        working-directory: agromonitor/frontend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: vercel deploy --prod --token=$VERCEL_TOKEN --yes
+        run: vercel deploy --prod --token=$VERCEL_TOKEN --yes agromonitor/frontend
