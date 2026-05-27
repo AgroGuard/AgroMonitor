@@ -1,0 +1,45 @@
+name: Deploy Frontend → Vercel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'agromonitor/frontend/**'
+
+jobs:
+  deploy:
+    name: Build e deploy no Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: agromonitor/frontend/package-lock.json
+
+      - name: Instalar dependências
+        working-directory: agromonitor/frontend
+        run: npm ci
+
+      - name: Build de produção
+        working-directory: agromonitor/frontend
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+        run: npm run build
+
+      - name: Instalar Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy no Vercel (produção)
+        working-directory: agromonitor/frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel deploy --prod --token=$VERCEL_TOKEN --yes
