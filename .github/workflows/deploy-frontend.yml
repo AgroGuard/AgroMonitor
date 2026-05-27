@@ -16,16 +16,14 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js 18
+      - name: Configurar Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
-          cache-dependency-path: agromonitor/frontend/package-lock.json
+          node-version: "20"
 
       - name: Instalar dependências
         working-directory: agromonitor/frontend
-        run: npm ci
+        run: npm install
 
       - name: Build de produção
         working-directory: agromonitor/frontend
