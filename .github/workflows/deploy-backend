@@ -1,0 +1,72 @@
+name: Deploy Backend → Render
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'agromonitor/Backend/**'
+      - 'requirements*.txt'
+      - 'render.yaml'
+
+jobs:
+  test:
+    name: Testes do backend
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: agromonitor_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SECRET_KEY: "chave-secreta-apenas-para-ci"
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/agromonitor_test"
+      DEBUG: "True"
+      ALLOWED_HOSTS: "localhost"
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements-production.txt
+
+      - name: Instalar dependências
+        run: pip install -r requirements-production.txt
+
+      - name: Rodar migrations
+        working-directory: agromonitor/Backend
+        run: python manage.py migrate --noinput
+
+      - name: Rodar testes
+        working-directory: agromonitor/Backend
+        run: python manage.py test --verbosity=2
+
+  deploy:
+    name: Deploy no Render
+    runs-on: ubuntu-latest
+    needs: test  # só faz deploy se os testes passarem
+
+    steps:
+      - name: Trigger deploy no Render
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            | grep -q "201" && echo " Deploy iniciado com sucesso!" || (echo "Falha ao iniciar deploy" && exit 1)
