@@ -22,7 +22,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/cadastro-estufa" element={<CadastroEstufa />} />
-          <Route path="/configuracoes" element={<Configuracoes />} />
           <Route path="/recuperar" element={<Recuperar />} />
         </Routes>
       </main>
