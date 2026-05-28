@@ -97,7 +97,6 @@ const Login = () => {
                     */}
 
                     <Link to="/recuperar" className="forgot-password-link">Esqueci minha senha</Link>
-                    <Link to="/cadastro" className="forgot-password-link">Criar conta</Link>
                     <button type="submit" className="button">Entrar</button>
                 </form>
             </div>
