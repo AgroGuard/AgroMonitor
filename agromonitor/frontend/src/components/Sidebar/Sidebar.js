@@ -21,6 +21,9 @@ const Sidebar = () => {
         <NavLink to="/configuracoes" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
           Configurações
         </NavLink>
+        <NavLink to="/termos" className={({ isActive }) => isActive ? 'menu-item active' : 'menu-item'}>
+          Políticas e Termos
+        </NavLink>
       </nav>
     </div>
   );

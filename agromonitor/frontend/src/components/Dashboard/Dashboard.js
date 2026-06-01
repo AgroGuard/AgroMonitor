@@ -98,17 +98,6 @@ const Dashboard = () => {
       </section>
       <div className="camera-section">
         <h2>Monitoramento em Tempo Real</h2>
-        <div className="camera-grid">
-          <div className="camera-card">
-            <div className="video-placeholder">
-              <span>Aguardando sinal da câmera...</span>
-            </div>
-            <div className="camera-info">
-              <span>Estufa 01 - Lado Norte</span>
-              <span className="live-indicator">AO VIVO</span>
-            </div>
-          </div>
-        </div>
       </div>
       <div className={`control-card ${isPumpOn ? 'active' : ''}`}>
         <div className="controls-container">

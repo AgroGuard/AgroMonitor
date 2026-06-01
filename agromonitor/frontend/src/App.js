@@ -7,6 +7,9 @@ import Cadastro from './components/Cadastro/Cadastro';
 import Sidebar from './components/Sidebar/Sidebar';
 import Recuperar from './components/Recuparar/Recuperar';
 import CadastroEstufa from './components/Cadastro/Cadastro-Estufa';
+import Configuracao from './components/Configuracoes/Configuracoes';
+import Configuracoes from './components/Configuracoes/Configuracoes';
+import Termos from './components/Termos/Termos';
 
 function App() {
   const location = useLocation();
@@ -23,6 +26,8 @@ function App() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/cadastro-estufa" element={<CadastroEstufa />} />
           <Route path="/recuperar" element={<Recuperar />} />
+          <Route path="/configuracoes" element={<Configuracoes  />} />
+          <Route path="/termos" element={<Termos />} />
         </Routes>
       </main>
     </div>
