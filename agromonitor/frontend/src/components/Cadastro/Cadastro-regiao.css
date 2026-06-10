@@ -1,0 +1,41 @@
+.region-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.region-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #234;
+  font-weight: 600;
+}
+
+.region-form-grid input {
+  border: 1px solid #cbe2d5;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.98rem;
+}
+
+.region-form-grid button {
+  align-self: end;
+}
+
+.subtitle {
+  color: #567;
+  margin-bottom: 14px;
+}
+
+.form-message {
+  margin-top: 12px;
+  color: #156938;
+  font-weight: 600;
+}
+
+.linha-active{
+  background-color: #e8f5e9;
+  font-weight: bold;
+
+}
