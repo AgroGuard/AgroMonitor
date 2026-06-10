@@ -1,7 +1,0 @@
-from django.apps import AppConfig
-
-
-class ClimaConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Clima'
-    verbose_name = 'Clima e Previsão do Tempo'
