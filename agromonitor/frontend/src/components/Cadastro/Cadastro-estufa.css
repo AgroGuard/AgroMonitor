@@ -29,7 +29,6 @@
     flex: 1;
 }
 
-/* Inputs e Rótulos */
 .input-group {
     display: flex;
     flex-direction: column;
