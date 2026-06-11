@@ -1,17 +1,9 @@
-"""
-conftest.py — Fixtures globais do AgroMonitor
-Coloque em: agromonitor/Backend/conftest.py
-"""
 import bcrypt
 import uuid
 import pytest
 from django.test import Client
 from Cadastro.models import Usuario, UsuarioToken, UsuarioConvite
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def make_senha_hash(senha: str) -> str:
     return bcrypt.hashpw(senha.encode(), bcrypt.gensalt()).decode()
@@ -21,9 +13,7 @@ def make_email_hash(email: str) -> str:
     return bcrypt.hashpw(email.encode(), bcrypt.gensalt()).decode()
 
 
-# ---------------------------------------------------------------------------
-# Fixtures de usuários
-# ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def senha_padrao():
