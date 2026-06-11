@@ -1,7 +1,3 @@
-"""
-tests/test_serializers_clima.py — Testes dos Serializers de Clima
-Coloque em: agromonitor/Backend/tests/test_serializers_clima.py
-"""
 import pytest
 from django.utils import timezone
 from datetime import timedelta
@@ -14,10 +10,6 @@ from Clima.serializers import (
 )
 from Clima.models import LocalidadeClima, PrevisaoTempo, AlertaClima, HistoricoClima
 
-
-# ---------------------------------------------------------------------------
-# Fixtures de Clima
-# ---------------------------------------------------------------------------
 
 @pytest.fixture
 def localidade(db):
@@ -50,9 +42,7 @@ def previsao(db, localidade):
     )
 
 
-# ---------------------------------------------------------------------------
-# LocalidadeClimaSerializer
-# ---------------------------------------------------------------------------
+
 
 class TestLocalidadeClimaSerializer:
 
@@ -94,10 +84,6 @@ class TestLocalidadeClimaSerializer:
         assert "nome" in s.errors
 
 
-# ---------------------------------------------------------------------------
-# PrevisaoTempoSerializer
-# ---------------------------------------------------------------------------
-
 class TestPrevisaoTempoSerializer:
 
     def test_serializa_previsao(self, previsao):
@@ -116,9 +102,6 @@ class TestPrevisaoTempoSerializer:
         assert "id" in s.data
 
 
-# ---------------------------------------------------------------------------
-# AlertaClimaSerializer
-# ---------------------------------------------------------------------------
 
 class TestAlertaClimaSerializer:
 
@@ -166,9 +149,6 @@ class TestAlertaClimaSerializer:
         assert s.data["previsao_data"] is None
 
 
-# ---------------------------------------------------------------------------
-# HistoricoClimaSerializer
-# ---------------------------------------------------------------------------
 
 class TestHistoricoClimaSerializer:
 
@@ -200,9 +180,6 @@ class TestHistoricoClimaSerializer:
             assert campo in s.data
 
 
-# ---------------------------------------------------------------------------
-# NotaUsuarioSerializer
-# ---------------------------------------------------------------------------
 
 class TestNotaUsuarioSerializer:
 
