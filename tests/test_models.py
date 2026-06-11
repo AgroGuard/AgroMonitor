@@ -1,7 +1,3 @@
-"""
-tests/test_models.py — Testes dos Models de Cadastro
-Coloque em: agromonitor/Backend/tests/test_models.py
-"""
 import pytest
 import bcrypt
 import uuid
@@ -15,9 +11,6 @@ def make_hash(valor: str) -> str:
     return bcrypt.hashpw(valor.encode(), bcrypt.gensalt()).decode()
 
 
-# ---------------------------------------------------------------------------
-# Usuario
-# ---------------------------------------------------------------------------
 
 class TestUsuarioModel:
 
@@ -92,9 +85,6 @@ class TestUsuarioModel:
             )
 
 
-# ---------------------------------------------------------------------------
-# UsuarioToken
-# ---------------------------------------------------------------------------
 
 class TestUsuarioTokenModel:
 
@@ -120,9 +110,6 @@ class TestUsuarioTokenModel:
         assert t1.key != t2.key
 
 
-# ---------------------------------------------------------------------------
-# UsuarioConvite
-# ---------------------------------------------------------------------------
 
 class TestUsuarioConviteModel:
 
@@ -188,9 +175,6 @@ class TestUsuarioConviteModel:
         assert "funcstr" in str(convite)
 
 
-# ---------------------------------------------------------------------------
-# RecuperacaoSenha
-# ---------------------------------------------------------------------------
 
 class TestRecuperacaoSenhaModel:
 
@@ -253,10 +237,6 @@ class TestRecuperacaoSenhaModel:
         )
         assert usuario_owner.usuario in str(rec)
 
-
-# ---------------------------------------------------------------------------
-# Tenant
-# ---------------------------------------------------------------------------
 
 class TestTenantModel:
 
