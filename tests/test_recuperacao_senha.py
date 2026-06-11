@@ -1,7 +1,3 @@
-"""
-tests/test_recuperacao_senha.py — Testes de Recuperação de Senha
-Coloque em: agromonitor/Backend/tests/test_recuperacao_senha.py
-"""
 import json
 import pytest
 from unittest.mock import patch
@@ -49,16 +45,15 @@ class TestSolicitarRecuperacaoSenha:
     @patch("Cadastro.views.send_mail")
     def test_solicitar_limpa_tokens_antigos(self, mock_mail, client, usuario_owner):
         mock_mail.return_value = 1
-        # Cria token antigo
         RecuperacaoSenha.objects.create(usuario=usuario_owner, email=usuario_owner.email)
         count_antes = RecuperacaoSenha.objects.filter(usuario=usuario_owner).count()
         assert count_antes == 1
 
-        # Solicita novamente
+        
         post_json(client, "/Cadastro/recuperar/solicitar/", {
             "email": usuario_owner.email,
         })
-        # O antigo deve ter sido deletado e um novo criado
+        
         assert RecuperacaoSenha.objects.filter(usuario=usuario_owner).count() == 1
 
     @patch("Cadastro.views.send_mail")
