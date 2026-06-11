@@ -1,7 +1,3 @@
-"""
-tests/test_login.py — Testes de Login e Logout
-Coloque em: agromonitor/Backend/tests/test_login.py
-"""
 import json
 import pytest
 import bcrypt
@@ -18,9 +14,7 @@ def post_json(client, url, data):
     )
 
 
-# ---------------------------------------------------------------------------
-# Login
-# ---------------------------------------------------------------------------
+
 
 class TestLoginApi:
 
@@ -131,9 +125,6 @@ class TestLoginApi:
         assert usuario_owner.bloqueio is True
 
 
-# ---------------------------------------------------------------------------
-# Logout
-# ---------------------------------------------------------------------------
 
 class TestLogoutApi:
 
