@@ -1,7 +1,3 @@
-"""
-tests/test_views.py — Testes de Perfil, Convites, Cadastro e Estufas
-Coloque em: agromonitor/Backend/tests/test_views.py
-"""
 import json
 import pytest
 from unittest.mock import patch
@@ -12,10 +8,6 @@ from Cadastro.models import Usuario, UsuarioConvite, UsuarioToken
 def post_json(client, url, data):
     return client.post(url, data=json.dumps(data), content_type="application/json")
 
-
-# ---------------------------------------------------------------------------
-# Perfil
-# ---------------------------------------------------------------------------
 
 class TestPerfilApi:
 
@@ -78,9 +70,6 @@ class TestPerfilApi:
         assert resp.status_code == 403
 
 
-# ---------------------------------------------------------------------------
-# Convidar usuário
-# ---------------------------------------------------------------------------
 
 class TestConvidarUsuarioApi:
 
@@ -154,9 +143,6 @@ class TestConvidarUsuarioApi:
         assert resp.status_code == 400
 
 
-# ---------------------------------------------------------------------------
-# Completar cadastro
-# ---------------------------------------------------------------------------
 
 class TestCompletarCadastroApi:
 
@@ -237,9 +223,7 @@ class TestCompletarCadastroApi:
         assert resp.status_code == 400
 
 
-# ---------------------------------------------------------------------------
-# Estufas
-# ---------------------------------------------------------------------------
+
 
 class TestEstufasApi:
 
