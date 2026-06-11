@@ -28,7 +28,7 @@ python -m venv .venv
 pip install -r requirements-production.txt
 ```
 
-4. Ajuste `DATABASE_URL` e `REDIS_URL` em `.env` para apontar para seus serviços locais.
+4. Ajuste `DATABASE_URL` e `REDIS_URL` em `.env` para apontar para serviços locais.
 
 5. Rode migrations e colecione arquivos estáticos:
 
@@ -54,7 +54,3 @@ npm start
 Acessos:
 - Frontend: http://localhost:3000
 - Backend API: http://127.0.0.1:8000
-
-Observações:
-- Use `python manage.py createsuperuser` para criar um administrador local.
-- Se quiser, posso ajudar a configurar o backend com um Postgres e Redis locais sem Docker.
