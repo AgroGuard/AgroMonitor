@@ -51,14 +51,6 @@ python agromonitor/Backend/manage.py migrate
 python agromonitor/Backend/manage.py collectstatic --noinput
 python agromonitor/Backend/manage.py runserver
 ```
-
-5) Observações
-
-- Evite usar SQLite em produção; certifique-se de `DATABASE_URL` apontar para Postgres.
-- Se usar Celery/Redis ou MQTT, provisionar serviços e adicionar variáveis de ambiente.
-
----
-
 Se quiser, posso também:
 - adicionar os comandos de `migrate`/`collectstatic` ao `startCommand` (não recomendado),
 - criar um `docker-compose` para testes locais,
